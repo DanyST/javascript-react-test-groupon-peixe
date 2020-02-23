@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Form, FormControl } from 'react-bootstrap';
+import { Navbar, Nav, Form, FormControl } from "react-bootstrap";
 
 const NavBar = props => (
     <Navbar bg="dark" variant="dark" expand="lg">
