@@ -1,14 +1,16 @@
 import React from "react";
-import { NavBar, PhotoInfo } from './widgets';
-import Home from './sections/home';
+import { NavBar } from "./widgets";
+import { Router } from "react-router-dom";
+import Routes from "./Routes";
+import history from "./config/historyRouter";
 import "./App.css";
 
 function App() {
     return (
-        <>
-            <NavBar/>
-            <Home/>
-        </>
+        <Router history={history}>
+            <NavBar />
+            <Routes />
+        </Router>
     );
 }
 
