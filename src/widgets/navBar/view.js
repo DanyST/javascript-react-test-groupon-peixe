@@ -14,8 +14,8 @@ const NavBar = props => (
                 <NavLink className="nav-link" to={routes.home()}>
                     Popular Movies
                 </NavLink>
-                <NavLink className="nav-link" to="/wathlist">
-                    Watch List
+                <NavLink className="nav-link" to="/myfavorites">
+                    My Favorites
                 </NavLink>
             </Nav>
             <Form inline>
