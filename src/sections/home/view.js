@@ -41,7 +41,7 @@ const MOVIES = {
 
 const Home = props => {
     return (
-        <Container className="mt-4">
+        <Container className="mt-4 fluid">
             <MoviesShowcase title="Popular Movies" movies={MOVIES.Search}/>
         </Container>
     );
