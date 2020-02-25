@@ -23,6 +23,11 @@ export function fetchMovieById(id) {
     return axios.get(url);
 }
 
+export function fetchMovieListByTitle(movieTitle) {
+    const url = `&${qs.stringify({ s: movieTitle, type: "movie" })}`;
+    return axios.get(url);
+}
+
 export function fetchFavorites() {
     const favoriteMockEndPoint = new Promise((resolve, reject) => {
         setTimeout(function() {
