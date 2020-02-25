@@ -15,7 +15,7 @@ function updateFetching(value) {
     };
 }
 
-function updateFavoriteToggle(value) {
+export function updateFavoriteToggle(value) {
     return {
         type: types.DETAILED_MOVIE_FAVORITE_TOGGLE,
         value

@@ -42,3 +42,32 @@ export function postFavorite(movie) {
             .finally(() => dispatch(updateFetching(false)));
     };
 }
+
+export function deleteFavorite(movie) {
+    return function(dispatch, getState) {
+        if (!movie) {
+            return;
+        }
+
+        dispatch(updateFetching(true));
+
+        api.deleteFavoriteById(movie.imdbID)
+            .then(res => console.log(res))
+            .catch(error => console.error("deleteFavorite err: ", error))
+            .finally(() => dispatch(updateFetching(false)));
+    };
+}
+
+export function toggleStoreFavorite(movie, isCreate) {
+    return function(dispatch, getState) {
+        if (!movie) {
+            return;
+        }
+
+        if (isCreate) {
+            dispatch(postFavorite(movie));
+        } else {
+            dispatch(deleteFavorite(movie));
+        }
+    };
+}

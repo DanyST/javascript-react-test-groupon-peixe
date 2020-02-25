@@ -67,6 +67,26 @@ export function fetchFavoriteById(id) {
     return fetchFavoriteMockEndPoint;
 }
 
+export function deleteFavoriteById(id) {
+    const deleteFavoriteMockEndPoint = new Promise((resolve, reject) => {
+        setTimeout(function() {
+            const favorites = _getFavoritesFromLocalStorage();
+            
+            const favoriteFounded = favorites.find(fav => fav.imdbID === id);
+            const filterFavorites = favorites.filter(fav => fav.imdbID !== id);
+
+            localStorage.setItem(
+                GEEKFLIX_LOCAL_STORAGE_KEY,
+                JSON.stringify({ favorites: filterFavorites })
+            );
+
+            resolve(favoriteFounded);
+        }, 250);
+    });
+
+    return deleteFavoriteMockEndPoint;
+}
+
 function _getFavoritesFromLocalStorage() {
     const favoritesJSON = localStorage.getItem(GEEKFLIX_LOCAL_STORAGE_KEY);
     const favorites = favoritesJSON ? JSON.parse(favoritesJSON).favorites : [];

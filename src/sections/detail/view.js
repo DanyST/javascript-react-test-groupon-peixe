@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { LoaderButton } from "../../widgets";
 import * as actions from "../../redux/detailedMovie/action";
-import { postFavorite } from "../../redux/favoriteMovies/action";
+import * as favoriteActions from "../../redux/favoriteMovies/action";
 
 const Detail = props => {
     const dispatch = useDispatch();
@@ -19,6 +19,11 @@ const Detail = props => {
 
     useEffect(() => dispatch(actions.fetchMovieDetail(props.movieId)), []);
 
+    const toggleFavorite = () => {
+        dispatch(favoriteActions.toggleStoreFavorite(movie, !isFavorite));
+        dispatch(actions.updateFavoriteToggle(!isFavorite));
+    };
+
     return (
         <Container className="mt-4">
             {!isFetching && movie ? (
@@ -26,9 +31,10 @@ const Detail = props => {
                     <Col md="4" className="text-left">
                         <Image src={movie.Poster} alt={movie.Title} />
                         <LoaderButton
+                            loading={isFetching}
                             className="mt-2"
                             variant={!isFavorite ? "success" : "danger"}
-                            onClick={() => dispatch(postFavorite(props.movie))}
+                            onClick={toggleFavorite}
                         >
                             {!isFavorite ? "Add favorite" : "Remove favorite"}
                         </LoaderButton>
