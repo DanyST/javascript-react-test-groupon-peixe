@@ -7,16 +7,15 @@ export function configureAxios() {
         apikey: API_KEY,
         v: 1
     })}`;
-
-    console.log(`${BASE_URL}?${qs.stringify({
-        apikey: API_KEY,
-        v: 1
-    })}`);
-
     // Here also we can add default headers content type
 }
 
 export function fetchPopularMovies() {
     const url = `&${qs.stringify({ s: "batman", type: "movie" })}`;
+    return axios.get(url);
+}
+
+export function fetchMovieById(id) {
+    const url = `&${qs.stringify({ i: id, type: "movie" })}`
     return axios.get(url);
 }

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import * as actions from "../../redux/detailedMovie/action";
 
 const MOVIE_DETAIL = {
     Title: "Batman v Superman: Dawn of Justice",
@@ -45,108 +47,127 @@ const MOVIE_DETAIL = {
     Response: "True"
 };
 
-const Detail = () => {
+const Detail = props => {
+    const dispatch = useDispatch();
+
+    const { movie, isFetching } = useSelector(
+        state => ({
+            movie: state.detailedMovie.movie,
+            isFetching: state.detailedMovie.isFetching
+        }),
+        shallowEqual
+    );
+
+    useEffect(() => dispatch(actions.fetchMovieDetail(props.movieId)), []);
+
     return (
         <Container className="mt-4">
-            <Row>
-                <Col md="4" className="text-left">
-                    <Image src={MOVIE_DETAIL.Poster} alt={MOVIE_DETAIL.Title} />
-                    <Button className="mt-2">Add to favorites</Button>
-                </Col>
-                <Col md="8">
-                    <Row className="mb-2">
-                        <Col>
-                            <h2>
-                                {MOVIE_DETAIL.Title} ({MOVIE_DETAIL.Year})
-                            </h2>
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Rated:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Rated}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Released:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Released}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Runtime:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Runtime}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Genre:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Genre}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Director:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Director}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Writers:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Writer}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Actors:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Actors}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Plot:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Plot}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Language:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Language}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Country:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Country}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Awards:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Awards}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">Metascore:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.Metascore}
-                        </Col>
-                    </Row>
-                    <Row className="mb-1">
-                        <Col md="2">imdbRating:</Col>
-                        <Col md="10" className="font-weight-light">
-                            {MOVIE_DETAIL.imdbRating}
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
+            {!isFetching && movie ? (
+                <Row>
+                    <Col md="4" className="text-left">
+                        <Image
+                            src={movie.Poster}
+                            alt={movie.Title}
+                        />
+                        <Button className="mt-2">Add to favorites</Button>
+                    </Col>
+                    <Col md="8">
+                        <Row className="mb-2">
+                            <Col>
+                                <h2>
+                                    {movie.Title} ({movie.Year})
+                                </h2>
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Rated:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Rated}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Released:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Released}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Runtime:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Runtime}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Genre:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Genre}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Director:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Director}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Writers:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Writer}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Actors:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Actors}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Plot:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Plot}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Language:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Language}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Country:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Country}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Awards:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Awards}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">Metascore:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.Metascore}
+                            </Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col md="2">imdbRating:</Col>
+                            <Col md="10" className="font-weight-light">
+                                {movie.imdbRating}
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            ) : (
+                <p>Loading...</p>
+            )}
         </Container>
     );
 };
 
 Detail.defaultProps = {
-
-}
+    movieId: ""
+};
 
 export default Detail;

@@ -6,7 +6,13 @@ import Detail from './sections/detail';
 const Routes = () => (
     <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/movie/:movieId" component={Detail} />
+        <Route path="/movie/:movieId" render={ ({ match }) => {
+            // utilizar render nos permite abstraer el routing fuera del componente
+            // de esta manera Detail recibe el movieId en lugar de recibir el
+            // match del router, con lo que reducimos su acoplamiento.
+            const { movieId } = match.params;
+            return <Detail movieId={movieId} />
+        }} />
     </Switch>
 );
 

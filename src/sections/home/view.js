@@ -11,7 +11,7 @@ const Home = () => {
             list: state.popularMovies.list,
             isFetching: state.popularMovies.isFetching
         }),
-        shallowEqual
+        shallowEqual // For rendering only if there is changes in props and deep props
     );
     
     // Redux dispatch
