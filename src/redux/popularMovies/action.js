@@ -1,22 +1,37 @@
-import * as types from './types';
+import * as types from "./types";
+import * as api from "../../webservices";
 
-export function updatePopularMoviesList(list) {
+function updatePopularMoviesList(list) {
     return {
         type: types.POPULAR_MOVIES_UPDATE_LIST,
         value: list
-    }
+    };
 }
 
-export function updateFetching(value) {
+function updateFetching(value) {
     return {
         type: types.POPULAR_MOVIES_FETCHING,
         value
-    }
+    };
 }
 
 export function updateHouseSelected(value) {
     return {
         type: types.POPULAR_MOVIES_UPDATE_SELECTED,
-        value        
-    }
+        value
+    };
+}
+
+export function fetchPopularMovieList() {
+    // redux thunks allow this
+    return function(dispatch, getState) {
+        dispatch(updateFetching(true));
+
+        api.fetchPopularMovies()
+            .then(res => {
+                console.log("res:", res);
+            })
+            .catch(error => console.error("fetchPopularMovies err: " + error))
+            .finally(_ => dispatch(updateFetching(false)));
+    };
 }
