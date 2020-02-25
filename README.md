@@ -11,3 +11,6 @@ de http://www.omdbapi.com.
 
 ## Correr Aplicación
 `yarn start` o `npm start`
+
+## Demo de la aplicación
+[Hacer click Aquí](http://geekflix-app.s3-website-us-east-1.amazonaws.com)

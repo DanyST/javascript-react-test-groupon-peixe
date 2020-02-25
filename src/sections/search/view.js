@@ -18,7 +18,7 @@ const Search = props => {
     // Life Cycle
     useEffect(() => {
         dispatch(actions.fetchSearchMovieByTitle(props.query));
-    }, []);
+    }, [props.query]);
 
     return (
         <Container className="mt-4 fluid">
