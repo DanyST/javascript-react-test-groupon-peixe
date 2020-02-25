@@ -20,7 +20,7 @@ const Routes = () => (
         />
         <Route path="/myfavorites" component={Favorites} />
         <Route
-            path="/search?q=:query"
+            path="/search/:query"
             render={({ match }) => {
                 const { query } = match.params;
                 return <Search query={query} />;
@@ -35,5 +35,5 @@ export const routes = {
     home: () => "/",
     detail: movieId => `/movie/${movieId}`,
     favorites: () => "/myfavorites",
-    search: query => `/search?q=${query}`
+    search: query => `/search/${query}`
 };
