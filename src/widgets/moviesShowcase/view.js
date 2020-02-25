@@ -14,8 +14,8 @@ const MoviesShowcase = props => {
             <Row>
                 {props.movies && props.movies.length > 0 ? (
                     props.movies.map(movie => (
-                        <Col md={3} xs={8} key={movie.imdbID}>
-                            <Link to={routes.detail(movie.imdbID)}>
+                        <Col md={3} xs={8} key={movie.imdbID} className="mb-4">
+                            <Link to={routes.detail(movie.imdbID)} onClick={() => props.onMovieClick(movie.imdbID)}>
                                 <PhotoInfo
                                     containerClassName="showcase__item"
                                     imgClassName="shadow rounded showcase__image"
@@ -37,7 +37,8 @@ const MoviesShowcase = props => {
 
 MoviesShowcase.defaultProps = {
     movies: [],
-    title: ""
+    title: "",
+    onMovieClick: () => {}
 };
 
 export default MoviesShowcase;

@@ -1,48 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { MoviesShowcase } from "../../widgets";
+import * as actions from "../../redux/popularMovies/action";
 
-const MOVIES = {
-    Search: [
-        {
-            Title: "Batman Begins",
-            Year: "2005",
-            imdbID: "tt0372784",
-            Type: "movie",
-            Poster:
-                "https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg"
-        },
-        {
-            Title: "Batman v Superman: Dawn of Justice",
-            Year: "2016",
-            imdbID: "tt2975590",
-            Type: "movie",
-            Poster:
-                "https://m.media-amazon.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
-        },
-        {
-            Title: "Batman",
-            Year: "1989",
-            imdbID: "tt0096895",
-            Type: "movie",
-            Poster:
-                "https://m.media-amazon.com/images/M/MV5BMTYwNjAyODIyMF5BMl5BanBnXkFtZTYwNDMwMDk2._V1_SX300.jpg"
-        },
-        {
-            Title: "Batman Returns",
-            Year: "1992",
-            imdbID: "tt0103776",
-            Type: "movie",
-            Poster:
-                "https://m.media-amazon.com/images/M/MV5BOGZmYzVkMmItM2NiOS00MDI3LWI4ZWQtMTg0YWZkODRkMmViXkEyXkFqcGdeQXVyODY0NzcxNw@@._V1_SX300.jpg"
-        }
-    ]
-};
+const Home = () => {
+    // Props from redux
+    const { list, isFetching } = useSelector(
+        state => ({
+            list: state.popularMovies.list,
+            isFetching: state.popularMovies.isFetching
+        }),
+        shallowEqual
+    );
+    
+    // Redux dispatch
+    const dispatch = useDispatch();
+    
+    // Life Cycle
+    useEffect(() => {
+        dispatch(actions.fetchPopularMovieList());
+    }, []);
 
-const Home = props => {
+    // Functions
+    const saveMovieSelected = movieId => {
+        dispatch(actions.updateHouseSelected(movieId));
+    };
+
     return (
         <Container className="mt-4 fluid">
-            <MoviesShowcase title="Popular Movies" movies={MOVIES.Search}/>
+            {!isFetching ? (
+                <MoviesShowcase
+                    title="Popular Movies"
+                    movies={list}
+                    onMovieClick={saveMovieSelected}
+                />
+            ) : (
+                <p>Loading...</p>
+            )}
         </Container>
     );
 };
