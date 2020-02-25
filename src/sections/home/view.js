@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { MoviesShowcase } from "../../widgets";
 import * as actions from "../../redux/popularMovies/action";
+import { postFavorite } from "../../redux/favoriteMovies/action";
 
 const Home = () => {
     // Props from redux
@@ -13,30 +14,21 @@ const Home = () => {
         }),
         shallowEqual // For rendering only if there is changes in props and deep props
     );
-    
+
     // Redux dispatch
     const dispatch = useDispatch();
-    
+
     // Life Cycle
     useEffect(() => {
         dispatch(actions.fetchPopularMovieList());
     }, []);
 
-    // Functions
-    const saveMovieSelected = movieId => {
-        dispatch(actions.updateHouseSelected(movieId));
-    };
-
     return (
         <Container className="mt-4 fluid">
             {!isFetching ? (
-                <MoviesShowcase
-                    title="Popular Movies"
-                    movies={list}
-                    onMovieClick={saveMovieSelected}
-                />
+                <MoviesShowcase title="Popular Movies" movies={list} />
             ) : (
-                <p>Loading...</p>
+                <p className="lead text-center mt-2">Loading...</p>
             )}
         </Container>
     );

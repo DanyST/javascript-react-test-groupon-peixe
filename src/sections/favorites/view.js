@@ -1,53 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { MoviesShowcase } from "../../widgets";
-
-const FAVORITES = [
-    {
-        Title: "Batman Begins",
-        Year: "2005",
-        imdbID: "tt0372784",
-        Type: "movie",
-        Poster:
-            "https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg"
-    },
-    {
-        Title: "Batman v Superman: Dawn of Justice",
-        Year: "2016",
-        imdbID: "tt2975590",
-        Type: "movie",
-        Poster:
-            "https://m.media-amazon.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
-    },
-    {
-        Title: "Batman",
-        Year: "1989",
-        imdbID: "tt0096895",
-        Type: "movie",
-        Poster:
-            "https://m.media-amazon.com/images/M/MV5BMTYwNjAyODIyMF5BMl5BanBnXkFtZTYwNDMwMDk2._V1_SX300.jpg"
-    },
-    {
-        Title: "Batman Returns",
-        Year: "1992",
-        imdbID: "tt0103776",
-        Type: "movie",
-        Poster:
-            "https://m.media-amazon.com/images/M/MV5BOGZmYzVkMmItM2NiOS00MDI3LWI4ZWQtMTg0YWZkODRkMmViXkEyXkFqcGdeQXVyODY0NzcxNw@@._V1_SX300.jpg"
-    }
-];
+import * as actions from "../../redux/favoriteMovies/action";
 
 const FavoriteMovies = () => {
-    const isFetching = false;
+    const { list, isFetching } = useSelector(
+        state => ({
+            list: state.favoriteMovies.list,
+            isFetching: state.favoriteMovies.isFetching
+        }),
+        shallowEqual
+    );
+
+    const dispatch = useDispatch();
+
+    useEffect(() => dispatch(actions.fetchFavoritesList()), []);
+
     return (
         <Container className="mt-4 fluid">
             {!isFetching ? (
-                <MoviesShowcase
-                    title="My Favorites"
-                    movies={FAVORITES}     
-                />
+                list.length > 0 ? (
+                    <MoviesShowcase title="My Favorites" movies={list} />
+                ) : (
+                    <>
+                        <h2 className="mt-2">My Favorites</h2>
+                        <p className="lead mt-2">
+                            There are not favorites yet :(. Add your favorites
+                            movies.
+                        </p>
+                    </>
+                )
             ) : (
-                <p>Loading...</p>
+                <p className="lead text-center mt-2">Loading...</p>
             )}
         </Container>
     );

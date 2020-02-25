@@ -34,6 +34,6 @@ export function fetchMovieDetail(movieId) {
                 dispatch(updateMovieDetail(res.data));
             })
             .catch(error => console.error("fetchMovieDetail err: ", error))
-            .finally(_ => dispatch(updateFetching(false)));
+            .finally(() => dispatch(updateFetching(false)));
     };
 }

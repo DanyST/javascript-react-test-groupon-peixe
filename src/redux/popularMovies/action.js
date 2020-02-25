@@ -29,11 +29,10 @@ export function fetchPopularMovieList() {
 
         api.fetchPopularMovies()
             .then(res => {
-                console.log("res.data.Search:", res.data.Search);
                 const list = res.data.Search;
                 dispatch(updatePopularMoviesList(list));
             })
             .catch(error => console.error("fetchPopularMovies err: " + error))
-            .finally(_ => dispatch(updateFetching(false)));
+            .finally(() => dispatch(updateFetching(false)));
     };
 }

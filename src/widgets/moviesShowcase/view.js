@@ -15,7 +15,7 @@ const MoviesShowcase = props => {
                 {props.movies && props.movies.length > 0 ? (
                     props.movies.map(movie => (
                         <Col md={3} xs={8} key={movie.imdbID} className="mb-4">
-                            <Link to={routes.detail(movie.imdbID)} onClick={() => props.onMovieClick(movie.imdbID)}>
+                            <Link to={routes.detail(movie.imdbID)} onClick={() => props.onMovieClick(movie)}>
                                 <PhotoInfo
                                     containerClassName="showcase__item"
                                     imgClassName="shadow rounded showcase__image"
