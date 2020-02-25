@@ -18,15 +18,13 @@ const NavBar = props => (
                     My Favorites
                 </NavLink>
             </Nav>
-            <Form inline>
-                <FormControl
-                    type="text"
-                    placeholder="Search a movie"
-                    className="mr-sm-2"
-                />
-            </Form>
+            {props.renderSearchForm()}
         </Navbar.Collapse>
     </Navbar>
 );
+
+NavBar.defaultProps = {
+    renderSearchForm: () => {}
+};
 
 export default NavBar;

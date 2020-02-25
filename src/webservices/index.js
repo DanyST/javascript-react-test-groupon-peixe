@@ -23,7 +23,7 @@ export function fetchMovieById(id) {
     return axios.get(url);
 }
 
-export function fetchMovieListByTitle(movieTitle) {
+export function fetchSearchMovieListByTitle(movieTitle) {
     const url = `&${qs.stringify({ s: movieTitle, type: "movie" })}`;
     return axios.get(url);
 }

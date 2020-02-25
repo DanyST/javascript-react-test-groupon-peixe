@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./sections/home";
 import Detail from "./sections/detail";
 import Favorites from "./sections/favorites";
+import Search from "./sections/search";
 
 const Routes = () => (
     <Switch>
@@ -18,6 +19,13 @@ const Routes = () => (
             }}
         />
         <Route path="/myfavorites" component={Favorites} />
+        <Route
+            path="/search?q=:query"
+            render={({ match }) => {
+                const { query } = match.params;
+                return <Search query={query} />;
+            }}
+        />
     </Switch>
 );
 
@@ -27,4 +35,5 @@ export const routes = {
     home: () => "/",
     detail: movieId => `/movie/${movieId}`,
     favorites: () => "/myfavorites",
+    search: query => `/search?q=${query}`
 };

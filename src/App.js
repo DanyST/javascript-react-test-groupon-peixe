@@ -1,7 +1,7 @@
 import React from "react";
-import { NavBar } from "./widgets";
+import { NavBar, SearchForm } from "./widgets";
 import { Router } from "react-router-dom";
-import Routes from "./Routes";
+import Routes, { routes } from "./Routes";
 import history from "./config/historyRouter";
 import { store } from "./config/redux";
 import { Provider } from "react-redux";
@@ -14,7 +14,13 @@ function App() {
     return (
         <Provider store={store}>
             <Router history={history}>
-                <NavBar />
+                <NavBar
+                    renderSearchForm={() => (
+                        <SearchForm
+                            onSubmit={query => history.push(routes.search(query))}
+                        />
+                    )}
+                />
                 <Routes />
             </Router>
         </Provider>
