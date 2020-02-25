@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { LoaderButton } from "../../widgets";
 import * as actions from "../../redux/detailedMovie/action";
+import { postFavorite } from "../../redux/favoriteMovies/action";
 
 const Detail = props => {
     const dispatch = useDispatch();
 
-    const { movie, isFetching } = useSelector(
+    const { movie, isFetching, isFavorite } = useSelector(
         state => ({
             movie: state.detailedMovie.movie,
-            isFetching: state.detailedMovie.isFetching
+            isFetching: state.detailedMovie.isFetching,
+            isFavorite: state.detailedMovie.isFavorite
         }),
         shallowEqual
     );
@@ -22,7 +25,13 @@ const Detail = props => {
                 <Row>
                     <Col md="4" className="text-left">
                         <Image src={movie.Poster} alt={movie.Title} />
-                        <Button className="mt-2">Add to favorites</Button>
+                        <LoaderButton
+                            className="mt-2"
+                            variant={!isFavorite ? "success" : "danger"}
+                            onClick={() => dispatch(postFavorite(props.movie))}
+                        >
+                            {!isFavorite ? "Add favorite" : "Remove favorite"}
+                        </LoaderButton>
                     </Col>
                     <Col md="8">
                         <Row className="mb-2">

@@ -3,7 +3,6 @@ import { Container } from "react-bootstrap";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { MoviesShowcase } from "../../widgets";
 import * as actions from "../../redux/popularMovies/action";
-import { postFavorite } from "../../redux/favoriteMovies/action";
 
 const Home = () => {
     // Props from redux

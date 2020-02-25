@@ -26,12 +26,7 @@ export function fetchMovieById(id) {
 export function fetchFavorites() {
     const favoriteMockEndPoint = new Promise((resolve, reject) => {
         setTimeout(function() {
-            const favoritesJSON = localStorage.getItem(
-                GEEKFLIX_LOCAL_STORAGE_KEY
-            );
-            const favorites = favoritesJSON
-                ? JSON.parse(favoritesJSON).favorites
-                : [];
+            const favorites = _getFavoritesFromLocalStorage();
 
             resolve({ data: favorites });
         }, 250);
@@ -43,12 +38,7 @@ export function fetchFavorites() {
 export function addNewFavorite(movie) {
     const addFavoriteMockEndPoint = new Promise((resolve, reject) => {
         setTimeout(function() {
-            const favoritesJSON = localStorage.getItem(
-                GEEKFLIX_LOCAL_STORAGE_KEY
-            );
-            const favorites = favoritesJSON
-                ? JSON.parse(favoritesJSON).favorites
-                : [];
+            const favorites = _getFavoritesFromLocalStorage();
 
             const newFavoriteList = [movie, ...favorites];
 
@@ -61,4 +51,25 @@ export function addNewFavorite(movie) {
     });
 
     return addFavoriteMockEndPoint;
+}
+
+export function fetchFavoriteById(id) {
+    const fetchFavoriteMockEndPoint = new Promise((resolve, reject) => {
+        setTimeout(function() {
+            const favorites = _getFavoritesFromLocalStorage();
+
+            const favoriteFounded = favorites.find(fav => fav.imdbID === id);
+
+            resolve(favoriteFounded);
+        }, 250);
+    });
+
+    return fetchFavoriteMockEndPoint;
+}
+
+function _getFavoritesFromLocalStorage() {
+    const favoritesJSON = localStorage.getItem(GEEKFLIX_LOCAL_STORAGE_KEY);
+    const favorites = favoritesJSON ? JSON.parse(favoritesJSON).favorites : [];
+
+    return favorites;
 }

@@ -15,6 +15,13 @@ function updateFetching(value) {
     };
 }
 
+function updateFavoriteToggle(value) {
+    return {
+        type: types.DETAILED_MOVIE_FAVORITE_TOGGLE,
+        value
+    };
+}
+
 export function fetchMovieDetail(movieId) {
     return function(dispatch, getState) {
         dispatch(updateFetching(true));
@@ -32,6 +39,16 @@ export function fetchMovieDetail(movieId) {
                 }
 
                 dispatch(updateMovieDetail(res.data));
+
+                return api.fetchFavoriteById(res.data.imdbID);
+            })
+            .then(resFavorite => {
+                if (!resFavorite) {
+                    // No es pelcula favorita
+                    dispatch(updateFavoriteToggle(false));
+                    return
+                }
+                dispatch(updateFavoriteToggle(true));
             })
             .catch(error => console.error("fetchMovieDetail err: ", error))
             .finally(() => dispatch(updateFetching(false)));
