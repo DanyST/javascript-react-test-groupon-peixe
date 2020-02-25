@@ -1,6 +1,5 @@
 import axios from "axios";
 import qs from "qs";
-import _ from "lodash";
 import { BASE_URL, API_KEY } from "../config/api";
 
 const GEEKFLIX_LOCAL_STORAGE_KEY = "GEEKFLIX";

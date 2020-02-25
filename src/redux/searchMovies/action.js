@@ -24,8 +24,7 @@ export function fetchSearchMovieByTitle(title) {
         dispatch(updateFetching(true));
 
         api.fetchSearchMovieListByTitle(title)
-            .then(res => {
-                console.log("res: ", res);
+            .then(res => {                
                 dispatch(updateSearchMovieList(res.data.Search));                                                                                                                                            
             })
             .catch(error =>

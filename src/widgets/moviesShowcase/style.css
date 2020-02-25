@@ -10,3 +10,10 @@
     height: 20em;
     width: 90%;    
 }
+
+@media (max-width: 576px) {  
+    .showcase__image {
+        height: 100%;
+        width: 100%;    
+    }
+}

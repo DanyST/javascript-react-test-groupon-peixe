@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Row, Col, Image, Button } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { LoaderButton } from "../../widgets";
 import * as actions from "../../redux/detailedMovie/action";
@@ -28,8 +28,12 @@ const Detail = props => {
         <Container className="mt-4">
             {!isFetching && movie ? (
                 <Row>
-                    <Col md="4" className="text-left">
-                        <Image src={movie.Poster} alt={movie.Title} />
+                    <Col md="4" className="mb-5">
+                        <Image                                                  
+                            src={movie.Poster}
+                            alt={movie.Title}
+                            className="rounded shadow w-100 h-100"
+                        />
                         <LoaderButton
                             loading={isFetching}
                             className="mt-2"

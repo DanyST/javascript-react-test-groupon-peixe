@@ -52,7 +52,7 @@ export function deleteFavorite(movie) {
         dispatch(updateFetching(true));
 
         api.deleteFavoriteById(movie.imdbID)
-            .then(res => console.log(res))
+            .then(res => {})
             .catch(error => console.error("deleteFavorite err: ", error))
             .finally(() => dispatch(updateFetching(false)));
     };
